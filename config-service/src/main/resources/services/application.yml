@@ -10,9 +10,9 @@ hystrix:
           thread:
             timeoutInMilliseconds: 20000
 
-eureka:
+eureka: # service discovery(registry)
   instance:
     preferIpAddress: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://registry:8761/eureka/

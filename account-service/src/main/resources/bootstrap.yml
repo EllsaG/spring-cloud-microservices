@@ -1,9 +1,9 @@
 spring:
   application:
-    name: account-service
+    name: account-service # name of the service ( need to get access to the "service" in the "config-service")
   cloud:
     config:
-      uri: http://localhost:8001
-      fail-fast: true
-      password: admin
-      username: user
+      uri: http://config-service:8001 # server where was declared configuration file for account-service
+      fail-fast: true # for client stopping with the Exception and don't try to connect to the server again. If fail startup of a service and it cannot connect to the Config Server
+      password: admin # password to get access to this server
+      username: user # username to get access to this server

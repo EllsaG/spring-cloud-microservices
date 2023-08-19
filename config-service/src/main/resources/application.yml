@@ -3,12 +3,13 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/services
+          search-locations: classpath:/services # declaring the location where other configuration files will be located
   profiles:
-    active: native
+    active: native # To use the native profile
   security:
-    user:
+    user: # name and  password to get access to the server
       password: admin
+      name: user
 
-server:
+server: # server and port to find common config service and get own settings (in all other services this port will be declared in "bootstrap.yml")
   port: 8001
