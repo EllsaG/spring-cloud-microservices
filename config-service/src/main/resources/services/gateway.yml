@@ -6,31 +6,31 @@ hystrix:
           thread:
             timeoutInMilliseconds: 20000
 
-ribbon:
+ribbon: # load balancer
   ReadTimeout: 20000
   ConnectTimeout: 20000
 
-zuul:
+zuul: # gateway service (from Netflix). Zuul is the front door for all requests from devices and websites to the backend of the application.
   ignoredServices: '*'
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
 
-  routes:
+  routes: # for redirects query to the way ...
     account-service:
-      path: /accounts/**
+      path: /accounts/** # if query start from this prefix  it's redirected to account-service
       serviceId: account-service
       stripPrefix: false
 
     bill-service:
-      path: /bills/**
+      path: /bills/** # if query start from this prefix  it's redirected to bill-service
       serviceId: bill-service
       stripPrefix: false
 
     deposit-service:
-      path: /deposits/**
+      path: /deposits/** # if query start from this prefix  it's redirected to deposit-service
       serviceId: deposit-service
       stripPrefix: false
 
 server:
-  port: 8989
+  port: 8989  # port to get access to gateway
