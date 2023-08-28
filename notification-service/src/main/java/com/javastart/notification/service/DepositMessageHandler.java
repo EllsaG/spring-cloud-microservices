@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepositMessageHandler {
 
-    private final JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender; // for send message on email
 
     @Autowired
     public DepositMessageHandler(JavaMailSender javaMailSender) {
@@ -21,12 +21,12 @@ public class DepositMessageHandler {
     }
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_DEPOSIT)
-    public void receive(Message message) throws JsonProcessingException {
+    public void receive(Message message) throws JsonProcessingException { // defines a method for receiving messages
         System.out.println(message);
-        byte[] body = message.getBody();
+        byte[] body = message.getBody(); // the message comes in bytes
         String jsonBody = new String(body);
         ObjectMapper objectMapper = new ObjectMapper();
-        DepositResponseDTO depositResponseDTO = objectMapper.readValue(jsonBody, DepositResponseDTO.class);
+        DepositResponseDTO depositResponseDTO = objectMapper.readValue(jsonBody, DepositResponseDTO.class); // parsing in POJO
         System.out.println(depositResponseDTO);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
