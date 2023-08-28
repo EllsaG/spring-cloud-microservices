@@ -15,7 +15,7 @@ public class RabbitMQConfig {
     private static final String ROUTING_KEY_DEPOSIT = "js.key.deposit";
 
     @Autowired
-    private AmqpAdmin amqpAdmin;
+    private AmqpAdmin amqpAdmin; // for being assured what Spring create queues and exchanges
 
     @Bean
     public TopicExchange depositExchange() {
@@ -28,11 +28,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding depositBinding() {
+    public Binding depositBinding() { // fot binding the queue with exchange
         return BindingBuilder
                 .bind(queueDeposit())
                 .to(depositExchange())
-                .with(ROUTING_KEY_DEPOSIT);
+                .with(ROUTING_KEY_DEPOSIT); /* that means what's all messages with routing key "ROUTING_KEY_DEPOSIT = "js.key.deposit""
+                                                will be routed to the queue */
     }
 
 }
