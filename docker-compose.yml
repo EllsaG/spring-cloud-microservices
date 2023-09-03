@@ -1,19 +1,19 @@
-version: '3.5'
+version: '3.5' # docker-compose version
 services:
   config-service:
-    container_name: config-service
-    build: config-service
+    container_name: config-service # name of the service
+    build: config-service # way to the Dockerfile. The file is located in the "config-service" package
     ports:
-      - 8001:8001
+      - 8001:8001 # open port
 
   registry:
     container_name: registry
-    restart: always
+    restart: always # restarting service
     build: registry
     ports:
       - 8761:8761
     depends_on:
-      - config-service
+      - config-service # start after "config-service"
 
   gateway:
     container_name: gateway
@@ -21,7 +21,7 @@ services:
     build: gateway
     ports:
       - 8989:8989
-    depends_on:
+    depends_on: # start after "config-service" and "registry"
       - config-service
       - registry
 
