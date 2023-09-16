@@ -43,3 +43,14 @@
    - in terminal print command "docker-compose up" for start all docker containers
 6. After successful startup, check all services in "Eureka" at address "localhost:8761"
 7. Check all queries in the "Postman"
+
+### WRITING TESTS
+
+1. Check all testing dependencies in "build.gradle"
+2. Create next package and class for unit testing
+   - ["DepositServiceTest" for "deposit-service"](../spring-cloud-microservices/deposit-service/src/test/java/com/javastart/depositservice/service/DepositServiceTest.java) modeled after the original service of the "deposit-service" application
+3. Create next packages and classes for integration testing
+   - ["SpringH2DatabaseConfig" for "deposit-service"](../spring-cloud-microservices/deposit-service/src/test/java/com/javastart/depositservice/config/SpringH2DatabaseConfig.java)
+   - ["DepositControllerTest" for "deposit-service"](../spring-cloud-microservices/deposit-service/src/test/java/com/javastart/depositservice/controller/DepositControllerTest.java)
+   - ["application.yml" for "deposit-service"](../spring-cloud-microservices/deposit-service/src/test/resources/application.yml)
+   - ["bootstrap.yml" for "deposit-service"](../spring-cloud-microservices/deposit-service/src/test/resources/bootstrap.yml)
