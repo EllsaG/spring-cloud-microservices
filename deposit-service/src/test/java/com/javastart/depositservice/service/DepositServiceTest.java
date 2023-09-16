@@ -22,39 +22,40 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class) // for using with "Mockito" testing
 public class DepositServiceTest {
 
-    @Mock
+    @Mock // to set this class as endpoint, since no work will be done with repositories here
     private DepositRepository depositRepository;
 
-    @Mock
+    @Mock // to set this class as endpoint, since no work will be done with repositories here
     private AccountServiceClient accountServiceClient;
 
-    @Mock
+    @Mock // to set this class as endpoint, since no work will be done with repositories here
     private BillServiceClient billServiceClient;
 
-    @Mock
+    @Mock // to set this class as endpoint, since no work will be done with repositories here
     private RabbitTemplate rabbitTemplate;
 
-    @InjectMocks
+    @InjectMocks // to set this class as testable
     private DepositService depositService;
 
-    @Test
-    public void depositServiceTest_withBillId() {
+    @Test // for set this method as test method
+    public void depositServiceTest_withBillId() { // test to get "BillResponseDTO" and "AccountResponseDTO"
         BillResponseDTO billResponseDTO = createBillResponseDTO();
-        Mockito.when(billServiceClient.getBillById(ArgumentMatchers.anyLong())).thenReturn(billResponseDTO);
-        Mockito.when(accountServiceClient.getAccountById(ArgumentMatchers.anyLong())).thenReturn(createAccountResponseDTO());
+        Mockito.when(billServiceClient.getBillById(ArgumentMatchers.anyLong())).thenReturn(billResponseDTO); // when worked method "getBillById" it's return "billResponseDTO"
+        AccountResponseDTO accountResponseDTO = createAccountResponseDTO();
+        Mockito.when(accountServiceClient.getAccountById(ArgumentMatchers.anyLong())).thenReturn(accountResponseDTO); // when worked method "getBillById" it's return "accountResponseDTO"
         DepositResponseDTO deposit = depositService.deposit(null, 1L, BigDecimal.valueOf(1000));
         Assertions.assertThat(deposit.getMail()).isEqualTo("lori@cat.xyz");
     }
 
-    @Test(expected = DepositServiceException.class)
-    public void depositServiceTest_exception() {
+    @Test(expected = DepositServiceException.class) // for set this method as testing
+    public void depositServiceTest_exception() { // test to get exception
         depositService.deposit(null, null, BigDecimal.valueOf(1000));
     }
 
-    private AccountResponseDTO createAccountResponseDTO() {
+    private AccountResponseDTO createAccountResponseDTO() { // to create instance of the "AccountResponseDTO"
         AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
         accountResponseDTO.setAccountId(1L);
         accountResponseDTO.setBills(Arrays.asList(1L, 2L, 3L));
@@ -65,7 +66,7 @@ public class DepositServiceTest {
         return accountResponseDTO;
     }
 
-    private BillResponseDTO createBillResponseDTO() {
+    private BillResponseDTO createBillResponseDTO() { // to create instance of the "BillResponseDTO"
         BillResponseDTO billResponseDTO = new BillResponseDTO();
         billResponseDTO.setAccountId(1L);
         billResponseDTO.setAmount(BigDecimal.valueOf(1000));

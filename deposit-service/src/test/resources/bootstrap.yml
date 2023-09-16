@@ -1,3 +1,3 @@
 eureka:
   client:
-    enabled: false
+    enabled: false # setting to disable eureka client
